@@ -1,44 +1,44 @@
-mainMenu :-
+mainMenu:-
     printMainMenu,
-    menuOption,
+    printMenuOption,
     read(Input),
     checkInput(Input).
 
-checkInput(1) :-
+printMenuOption:-
+    write('Insert your option: ').
+
+checkInput(1):-
     startGame_PL_PL('P','P'),
     mainMenu.
 
-checkInput(2) :-
+checkInput(2):-
     startGame_PL_PL('P','C'),
     mainMenu.
 
-checkInput(3) :-
+checkInput(3):-
     startGame_PL_PL('C','C'),
     mainMenu.
 
-checkInput(0) :-
+checkInput(0):-
     write('\nExiting...\n\n').
 
-checkInput(_Other) :-
+checkInput(_):-
     write('\nERROR: invalid option!\n\n'),
-    menuOption,
+    printMenuOption,
     read(Input),
     checkInput(Input).
 
-printMainMenu :-
+printMainMenu:-
     nl,nl,
     write(' _______________________________________________________________________ '),nl,
     write('|                                                                       |'),nl,
     write('|                                                                       |'),nl,
-    write('|                         ___     _       _ _                           |'),nl,
-    write('|                        |  _|___| |_ ___|_| |_                         |'),nl,
-    write('|                        |  _| ."| . |  _| | "_|                        |'),nl,
-    write('|                        |_| |__,|___|_| |_|_,_|                        |'),nl,
+    write('|                 _____  _____    _____    _____  ______                |'),nl,
+    write('|                   |    |       |     |  |     | |                     |'),nl,
+    write('|                   |    |____   |_____|  |_____| |                     |'),nl,
+    write('|                   |         |  |     |  |     | |                     |'),nl,
+    write('|                 __|__   ____|  |     |  |     | |_____                |'),nl,
     write('|                                                                       |'),nl,
-    write('|                                                                       |'),nl,
-    write('|                           Barbara Sofia Silva                         |'),nl,
-    write('|                              Julieta Frade                            |'),nl,
-    write('|               -----------------------------------------               |'),nl,
     write('|                                                                       |'),nl,
     write('|                                                                       |'),nl,
     write('|                          1. Player vs Player                          |'),nl,
@@ -51,6 +51,3 @@ printMainMenu :-
     write('|                                                                       |'),nl,
     write('|                                                                       |'),nl,
     write(' _______________________________________________________________________ '),nl,nl,nl.
-
-menuOption :-
-    write('> Insert your option: ').
