@@ -8,15 +8,15 @@ printMenuOption:-
     write('Insert your option: ').
 
 checkInput(1):-
-    startGame_PL_PL('P','P'),
+    startGame('P','P'),
     mainMenu.
 
 checkInput(2):-
-    startGame_PL_PL('P','C'),
+    /*startGame('P','C'),*/
     mainMenu.
 
 checkInput(3):-
-    startGame_PL_PL('C','C'),
+    /*startGame('C','C'),*/
     mainMenu.
 
 checkInput(0):-

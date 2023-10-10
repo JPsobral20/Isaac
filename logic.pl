@@ -12,95 +12,102 @@ checkPiece6(Input, UpdatedInput) :-
     UpdatedInput = Input.
 
 
-startGame_PL_PL(PlayerD, PlayerL):-
+startGame(PlayerD, PlayerL):-
     initialMatrix(InitialBoard),
     darkPlayer(DarkPlayer),
     lightPlayer(LightPlayer),
-    gamePlacePhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, PlacePhaseBoard).
+    placePhasePlayerDark(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard).
     /*gameScoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
 
 
 
 takePiece(1, [Head|_]):-
+    /* tirar a peça */
     write('\n Tem '),
     write(Head),
     write(' peças de score 1').
 
     
 takePiece(2, [Head|_]):-
+    /* tirar a peça */
     write('\n Tem '),
     write(Head),
     write(' peças de score 2').
     
 
 takePiece(3, [Head|_]):-
+    /* tirar a peça */
     write('\n Tem '),
     write(Head),
     write(' peças de score 3').
 
 
 takePiece(4, [Head|_]):-
+    /* tirar a peça */
     write('\n Tem '),
     write(Head),
     write(' peças de score 4').
 
 takePiece(6, [Head|_]):-
+    /* tirar a peça */
     write('\n Tem '),
     write(Head),
     write(' peças de score 6').
 
 
 checkPiece(N, Player):-
-    N \= 1,
-    N \= 2,
-    N \= 3,
-    N \= 4,
-    N \= 6,
+    \+ member(N, [1, 2, 3, 4, 6]),
     write('\nERROR: invalid piece!\n\n'),
     write('Choose a piece: '),
     read(Input),
     checkPiece(Input, Player).
-
+    /*, !.*/
 
 
 checkPiece(N, Player):-
-    elementAtIndex(N, Player, X),
-    ((N == 1, takePiece(1, X));
-    (N == 2, takePiece(2, X));
-    (N == 3, takePiece(3, X));
-    (N == 4, takePiece(4, X));
-    (N == 6, takePiece(6, X))).
+    member(N, [1, 2, 3, 4, 6]),
+    elementAtIndex(N, Player, Ele),
+    takePiece(N, Ele).
 
 
+/* acho que podemos apagar
+gamePlacePhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
 
+    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard).
 
-
-gamePlacePhaseLoop(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
-
-    NewBoard = Board, %mudar
-    placePhasePlayerDark(NewBoard, DarkPlayer, LightPlayer, NewPlacePhaseBoard).
+*/
         
 
-placePhasePlayerDark(Board, DarkPlayer, LightPlayer, NewBoard):-
+placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     /*checkIfDarkCanPlay(),*/
     printBoard(Board),
-    write('\n------------------ PLAYER Dark -------------------\n\n'),
-    write('Choose a piece: '),
+    write('\n------------------ PLAYER Dark -------------------\n'),
+    write('\nChoose a piece: '),
     read(Input),
     checkPiece(Input, DarkPlayer),
+    /*
+    manageColumn(Column),
+    manageRow(Row),
+    */
+    /*change board*/
     NewBoard = Board,  %mudar 
-    placePhasePlayerLight(NewBoard, DarkPlayer, LightPlayer, NewPlacePhaseBoard).
+    placePhasePlayerLight(NewBoard, 'P', 'P', DarkPlayer, LightPlayer, NewPlacePhaseBoard).
 
 
-placePhasePlayerLight(Board, DarkPlayer, LightPlayer, NewBoard):-
+placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     printBoard(Board),
     /*checkIfDarkCanPlay(),*/
     write('\n------------------ PLAYER Light -------------------\n\n'),
     write('Choose a piece: '),
     read(Input),
     checkPiece(Input, LightPlayer),
+    /*
+    manageColumn(Column),
+    manageRow(Row),
+    */
+    /*change board*/
     NewBoard = Board, %mudar
-    placePhasePlayerDark(NewBoard, DarkPlayer, LightPlayer, NewPlacePhaseBoard).
+    placePhasePlayerDark(NewBoard, 'P', 'P', DarkPlayer, LightPlayer, NewPlacePhaseBoard).
 
 
 
