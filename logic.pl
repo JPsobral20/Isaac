@@ -14,7 +14,7 @@ startGame(PlayerD, PlayerL):-
     initialMatrix(InitialBoard),
     darkPlayer(DarkPlayer),
     lightPlayer(LightPlayer),
-    placePhasePlayerDark(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard).
+    gamePlacePhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer).
     /*gameScoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
 
 
@@ -68,13 +68,21 @@ checkPiece(N, Player):-
     takePiece(N, Ele).
 
 
-/* acho que podemos apagar
+/*
+checkIfAtLeatsOnePlayerCanPlay():-
+    checkIfDarkCanPlay();
+    checkIfLightCanPlay().
+*/
+
+
 gamePlacePhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
 
-    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard).
+    /*checkIfAtLeatsOnePlayerCanPlay(),*/
+    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard),
+    placePhasePlayerLight(NewBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewNewBoard),
+    gamePlacePhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer).
 
-*/
-        
+
 
 placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     /*checkIfDarkCanPlay(),*/
@@ -87,13 +95,12 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     manageRow(Row),
 
     /*change board*/
-    NewBoard = Board,  %mudar 
-    placePhasePlayerLight(NewBoard, 'P', 'P', DarkPlayer, LightPlayer, NewPlacePhaseBoard).
+    NewBoard = Board.  %mudar 
 
 
 placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
+    /*checkIfLightCanPlay(),*/
     printBoard(Board),
-    /*checkIfDarkCanPlay(),*/
     write('\n------------------ PLAYER Light -------------------\n\n'),
     write('Choose a piece: '),
     read(Input),
@@ -102,8 +109,7 @@ placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     manageRow(Row),
 
     /*change board*/
-    NewBoard = Board, %mudar
-    placePhasePlayerDark(NewBoard, 'P', 'P', DarkPlayer, LightPlayer, NewPlacePhaseBoard).
+    NewBoard = Board. %mudar
 
 
 
