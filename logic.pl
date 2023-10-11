@@ -7,9 +7,7 @@ elementAtIndex(I, [_|Tail], Element):-
 
 
 checkPiece6(Input, UpdatedInput) :-
-    (Input == 6,
-    UpdatedInput is Input - 1, !);
-    UpdatedInput = Input.
+    (Input = 6 -> UpdatedInput is Input - 1 ; UpdatedInput = Input).
 
 
 startGame(PlayerD, PlayerL):-
@@ -85,10 +83,9 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     write('\nChoose a piece: '),
     read(Input),
     checkPiece(Input, DarkPlayer),
-    /*
     manageColumn(Column),
     manageRow(Row),
-    */
+
     /*change board*/
     NewBoard = Board,  %mudar 
     placePhasePlayerLight(NewBoard, 'P', 'P', DarkPlayer, LightPlayer, NewPlacePhaseBoard).
@@ -101,10 +98,9 @@ placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     write('Choose a piece: '),
     read(Input),
     checkPiece(Input, LightPlayer),
-    /*
     manageColumn(Column),
     manageRow(Row),
-    */
+
     /*change board*/
     NewBoard = Board, %mudar
     placePhasePlayerDark(NewBoard, 'P', 'P', DarkPlayer, LightPlayer, NewPlacePhaseBoard).
