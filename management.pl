@@ -38,6 +38,9 @@ validColumn(Column) :-
 
 
 
+
+/* não é relacionado com o nosso código
+
 manageMoveWorkerBool(NewMoveWorkerBool):-
       read(MoveWorkerBool),
       validateMoveWorkerBool(MoveWorkerBool, NewMoveWorkerBool).
@@ -52,3 +55,4 @@ validateMoveWorkerBool(_Bool, NewMoveWorkerBool):-
     write('\nERROR: That answer is not valid, please try again![0(No)/1(Yes)]'),
     read(Input),
     validateMoveWorkerBool(Input, NewMoveWorkerBool).
+*/
