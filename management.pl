@@ -1,7 +1,81 @@
 /*Todos os predicados deste ficheiro analisam o input, relativamente às linhas e colunas inseridas pelo utilizador,
 e se as mesmas estão dentro dos limites do tabuleiro. Caso não se satisfaca, pede novamente a informação.*/
 
-% Manage Row
+elementAtIndex(1, [Head|_], Head).
+elementAtIndex(I, [_|Tail], Element):-
+    I > 1,
+    checkPiece6(I, NewI),
+    I1 is NewI - 1,
+    elementAtIndex(I1, Tail, Element).
+
+
+checkPiece6(Input, UpdatedInput) :-
+    (Input = 6 -> UpdatedInput is Input - 1 ; UpdatedInput = Input).
+
+
+takePiece(1, [Head|_]):-
+    /* tirar a peça */
+    write('\n Tem '),
+    write(Head),
+    write(' peças de score 1').
+
+    
+takePiece(2, [Head|_]):-
+    /* tirar a peça */
+    write('\n Tem '),
+    write(Head),
+    write(' peças de score 2').
+    
+
+takePiece(3, [Head|_]):-
+    /* tirar a peça */
+    write('\n Tem '),
+    write(Head),
+    write(' peças de score 3').
+
+
+takePiece(4, [Head|_]):-
+    /* tirar a peça */
+    write('\n Tem '),
+    write(Head),
+    write(' peças de score 4').
+
+takePiece(6, [Head|_]):-
+    /* tirar a peça */
+    write('\n Tem '),
+    write(Head),
+    write(' peças de score 6').
+
+
+checkPiece(N, Player):-
+    \+ member(N, [1, 2, 3, 4, 6]),
+    write('\nERROR: invalid piece!\n\n'),
+    write('Choose a piece: '),
+    read(Input),
+    checkPiece(Input, Player).
+    /*, !.*/
+
+
+checkPiece(N, Player):-
+    member(N, [1, 2, 3, 4, 6]),
+    elementAtIndex(N, Player, Ele),
+    takePiece(N, Ele).
+
+
+managePiece(Player):-
+    write('\nChoose a piece: '),
+    read(Input),
+    checkPiece(Input, Player).
+
+
+
+
+
+
+
+
+
+
 manageRow(NewRow) :-
     write('\nChoose a row: '),
     read(Row),
