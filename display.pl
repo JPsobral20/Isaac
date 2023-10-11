@@ -23,17 +23,16 @@ symbol(0,' ').
 symbol(1,S):- S='0D1'.
 symbol(1,S):- S='1D1'.
 
-
-letter(0, R):- R=' 0'.
-letter(10, R):- R='10'.
-letter(20, R):- R='20'.
-letter(30, R):- R='30'.
-letter(40, R):- R='40'.
-letter(50, R):- R='50'.
-letter(60, R):- R='60'.
-letter(70, R):- R='70'.
-letter(80, R):- R='80'.
-letter(90, R):- R='90'.
+rows(0, ' 0').
+rows(10, '10').
+rows(20, '20').
+rows(30, '30').
+rows(40, '40').
+rows(50, '50').
+rows(60, '60').
+rows(70, '70').
+rows(80, '80').
+rows(90, '90').
 
 /*
 printPieces(PlayerDark, PlayerLight):-
@@ -49,13 +48,13 @@ printBoard(X):-
 printMatrix([], -10, 100):- write('    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |\n').
 
 printMatrix([Head|Tail], ND, NL):-
-    letter(ND, RD),
+    rows(ND, RD),
     write(' '),
     write(RD),
     ND1 is ND - 10,
     write(' | '),
     printLine(Head),
-    letter(NL, RL),
+    rows(NL, RL),
     write(' '),
     write(RL),
     NL1 is NL + 10,
