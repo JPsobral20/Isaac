@@ -28,26 +28,33 @@ checkInput(_):-
     read(Input),
     checkInput(Input).
 
-printMainMenu:-
-    nl,nl,
-    write(' _______________________________________________________________________ '),nl,
-    write('|                                                                       |'),nl,
-    write('|                                                                       |'),nl,
+printGameName:-
     write('|                 _____  _____    _____    _____  ______                |'),nl,
     write('|                   |    |       |     |  |     | |                     |'),nl,
     write('|                   |    |____   |_____|  |_____| |                     |'),nl,
     write('|                   |         |  |     |  |     | |                     |'),nl,
-    write('|                 __|__   ____|  |     |  |     | |_____                |'),nl,
-    write('|                                                                       |'),nl,
-    write('|                                                                       |'),nl,
-    write('|                                                                       |'),nl,
+    write('|                 __|__   ____|  |     |  |     | |_____                |'),nl.
+
+
+printGameModes:-
     write('|                          1. Player vs Player                          |'),nl,
     write('|                                                                       |'),nl,
     write('|                          2. Player vs Computer                        |'),nl,
     write('|                                                                       |'),nl,
 	write('|                          3. Computer vs Computer                      |'),nl,
     write('|                                                                       |'),nl,
-    write('|                          0. Exit                                      |'),nl,
+    write('|                          0. Exit                                      |'),nl.
+
+printMainMenu:-
+    nl,nl,
+    write(' _______________________________________________________________________ '),nl,
+    write('|                                                                       |'),nl,
+    write('|                                                                       |'),nl,
+    printGameName,
+    write('|                                                                       |'),nl,
+    write('|                                                                       |'),nl,
+    write('|                                                                       |'),nl,
+    printGameModes,
     write('|                                                                       |'),nl,
     write('|                                                                       |'),nl,
     write(' _______________________________________________________________________ '),nl,nl,nl.

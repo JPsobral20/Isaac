@@ -13,62 +13,45 @@ checkPiece6(Input, UpdatedInput) :-
     (Input = 6 -> UpdatedInput is Input - 1 ; UpdatedInput = Input).
 
 
-takePiece(1, [Head|_]):-
-    /* tirar a peça */
-    write('\n Tem '),
-    write(Head),
-    write(' peças de score 1').
-
-    
-takePiece(2, [Head|_]):-
-    /* tirar a peça */
-    write('\n Tem '),
-    write(Head),
-    write(' peças de score 2').
-    
-
-takePiece(3, [Head|_]):-
-    /* tirar a peça */
-    write('\n Tem '),
-    write(Head),
-    write(' peças de score 3').
-
-
-takePiece(4, [Head|_]):-
-    /* tirar a peça */
-    write('\n Tem '),
-    write(Head),
-    write(' peças de score 4').
-
-takePiece(6, [Head|_]):-
-    /* tirar a peça */
-    write('\n Tem '),
-    write(Head),
-    write(' peças de score 6').
-
-
-checkPiece(N, Player):-
+checkPieceInputValid(N, Player):-
     \+ member(N, [1, 2, 3, 4, 6]),
     write('\nERROR: invalid piece!\n\n'),
     write('Choose a piece: '),
     read(Input),
-    checkPiece(Input, Player).
+    checkPieceInputValid(Input, Player).
     /*, !.*/
 
 
-checkPiece(N, Player):-
+checkPieceInputValid(N, Player):-
     member(N, [1, 2, 3, 4, 6]),
+    checkHavePiece(N, Player).
+
+
+
+checkHavePiece(N, Player):-
     elementAtIndex(N, Player, Ele),
-    takePiece(N, Ele).
+    havePiece(Ele, Player).
+
+
+havePiece([0|S], Player):-
+    write('\nNão tem peças de score '),
+    write(S),
+    write('\nEscolha outra!\n'),
+    managePiece(Player).
+    
+havePiece([N|S], Player):-
+    N \= 0,
+    write('\n Tem '),
+    write(N),
+    write(' peças de score '),
+    write(S).
 
 
 managePiece(Player):-
     write('\nChoose a piece: '),
     read(Input),
-    checkPiece(Input, Player).
-
-
-
+    checkPieceInputValid(Input, Player).
+    
 
 
 
