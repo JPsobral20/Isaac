@@ -16,6 +16,11 @@ darkPlayer([[0,1], [4,2], [3,3], [2,4], [1,6]]).
 
 lightPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
 
+scoreLength(1,3).
+scoreLength(2,4).
+scoreLength(3,5).
+scoreLength(4,6).
+scoreLength(6,7).
 
 symbol(0,' ').
 
@@ -32,6 +37,7 @@ rows(60, '60').
 rows(70, '70').
 rows(80, '80').
 rows(90, '90').
+
 
 /*
 printPieces(PlayerDark, PlayerLight):-
