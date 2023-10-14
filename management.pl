@@ -40,6 +40,7 @@ havePiece([0|S], Player):-
     write('\nEscolha outra!\n'),
     managePiece(Player).
     
+    
 havePiece([N|S], Player):-
     N \= 0,
     write('\n Tem '),
@@ -49,8 +50,14 @@ havePiece([N|S], Player):-
     write(Ele).
 
 
+managePiece(Player):-
+    write('\nChoose a piece: '),
+    read(Input),
+    checkPieceInputValid(Input, Player).
+
+
 /*
-decrementFirstElementN(List, N, Result) :-
+decrementPiece(List, N, Result) :-
     nth0(N, List, Sublist),
     [CurrentFirst | Rest] = Sublist,
     NewFirst is CurrentFirst - 1,
@@ -63,19 +70,7 @@ replaceAtIndex(Index, List, NewElement, Result) :-
 */
 
 
-
-
-
-
-managePiece(Player):-
-    write('\nChoose a piece: '),
-    read(Input),
-    checkPieceInputValid(Input, Player).
     
-
-
-
-
 
 
 

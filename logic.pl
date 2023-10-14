@@ -2,8 +2,8 @@ startGame(PlayerD, PlayerL):-
     initialMatrix(InitialBoard),
     darkPlayer(DarkPlayer),
     lightPlayer(LightPlayer),
-    gamePlacePhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer).
-    /*gameScoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
+    placementPhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer).
+    /*scoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
 
 
 /*
@@ -12,16 +12,16 @@ checkIfAtLeatsOnePlayerCanPlay():-
     checkIfLightCanPlay().
 */
 
-gamePlacePhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
+placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
 
     /*checkIfAtLeatsOnePlayerCanPlay(),*/
-    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard),
-    placePhasePlayerLight(NewBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewNewBoard),
-    gamePlacePhaseLoop(NewNewBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer).
+    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, NewBoard, NewDarkPlayer),
+    placePhasePlayerLight(NewBoard, PlayerD, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer),
+    placementPhaseLoop(NewNewBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer). %mudar
 
 
 
-placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
+placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     /*checkIfDarkCanPlay(),*/
     printBoard(Board),
     write('\n------------------ PLAYER Dark -------------------\n'),
@@ -29,13 +29,13 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     manageColumn(Column),
     manageRow(Row),
     /*chooseDirection()*/
-    /*removePiece(Dakplayer, NewDarkPlayer)*/
+    /*decrementPiece(Darkplayer, NewDarkPlayer)*/
 
     /*change board*/
     NewBoard = Board.  %mudar 
 
 
-placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
+placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
     /*checkIfLightCanPlay(),*/
     printBoard(Board),
     write('\n------------------ PLAYER Light -------------------\n\n'),
@@ -43,7 +43,7 @@ placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     manageColumn(Column),
     manageRow(Row),
     /*chooseDirection()*/
-    /*removePiece(LightPlayer, NewLightPlayer)*/
+    /*decrementPiece(LightPlayer, NewLightPlayer)*/
 
     /*change board*/
     NewBoard = Board. %mudar
