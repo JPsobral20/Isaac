@@ -58,7 +58,8 @@ managePiece(Player, Piece):-
 
 decrementPiece([Sublist | Rest], N, NewDarkPlayer):-
     N > 1,
-    N1 is N - 1,
+    checkPiece6(N, NewN),
+    N1 is NewN - 1,
     decrementPiece(Rest, N1, UpdatedRest),
     NewDarkPlayer = [Sublist | UpdatedRest].
 
@@ -82,7 +83,7 @@ manageRow(NewRow) :-
 
 validateRow(Row, NewRow) :-
     validRow(Row), !,
-    NewRow is Row / 10.
+    NewRow is Row.
 
 validateRow(_, NewRow) :-
     write('\nThat row is not valid!\n'),
@@ -110,7 +111,7 @@ validColumn(Column) :-
     member(Column, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).
 
 
-chooseDirection(Column,Row,Piece):- 
+chooseDirection(Column, Row, Piece):- 
     write('\nChoose a direction (up,down,left,right): '),
     read(Direction),
     validateDirection(Direction, Column, Row, Piece).
@@ -122,25 +123,45 @@ validateDirection(Direction, Column, Row, Piece) :-
     read(NewDirection),
     validateDirection(NewDirection, Column, Row, Piece).
 
-validateDirection(Direction, Column, Row) :-
-    member(Direction, [up, down, left, right]).
+validateDirection(Direction, Column, Row, Piece) :-
+    member(Direction, [up, down, left, right]),
     scoreLength(Piece, Length),
     checkDirection(Direction, Column, Row, Length).
 
-checkDirection(up, Column, Row, Length):-           % Se a linha somada ao comprimento da peça for maior que 90, não é válido
-    (Row + (Length * 10) <= 90 ->
+checkDirection(up, Column , Row, Length):-  
+    (Row + ((Length - 1) * 10) =< 90 ->
         write('\nThat direction is valid!\n')
-        ;
-        write('\nThat direction is not valid!\n')
+    ;
+        write('\nThat direction is not valid!\n'),
+        scoreLength(Piece, Length),
+        chooseDirection(Column, Row, Piece)
     ).
 
-checkDirection(up, Column, Row, Length):-           % Se a linha subtraida ao comprimento da peça for menor que 0, não é válido
-    (Row - (Length * 10) >= 0 ->
+checkDirection(down, Column , Row, Length):-
+    (Row - ((Length - 1) * 10) >= 0 ->
         write('\nThat direction is valid!\n')
-        ;
-        write('\nThat direction is not valid!\n')
+    ;
+        write('\nThat direction is not valid!\n'),
+        scoreLength(Piece, Length),
+        chooseDirection(Column, Row, Piece)
+    ).
+checkDirection(left, Column , Row, Length):-
+    (Column - (Length - 1) >= 0 ->
+        write('\nThat direction is valid!\n')
+    ;
+        write('\nThat direction is not valid!\n'),
+        scoreLength(Piece, Length),
+        chooseDirection(Column, Row, Piece)
     ).
 
+checkDirection(right, Column , Row, Length):-
+    (Column + (Length - 1) =< 9  ->
+        write('\nThat direction is valid!\n')
+    ;
+        write('\nThat direction is not valid!\n'),
+        scoreLength(Piece, Length),
+        chooseDirection(Column, Row, Piece)
+    ).
 
 /* não é relacionado com o nosso código
 
