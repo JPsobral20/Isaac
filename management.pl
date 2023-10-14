@@ -35,7 +35,8 @@ checkHavePiece(N, Player):-
 
 havePiece([0|S], Player):-
     write('\nNão tem peças de score '),
-    write(S),
+    elementAtIndex(1, S, Ele),
+    write(Ele),
     write('\nEscolha outra!\n'),
     managePiece(Player).
     
@@ -44,7 +45,26 @@ havePiece([N|S], Player):-
     write('\n Tem '),
     write(N),
     write(' peças de score '),
-    write(S).
+    elementAtIndex(1, S, Ele),
+    write(Ele).
+
+
+/*
+decrementFirstElementN(List, N, Result) :-
+    nth0(N, List, Sublist),
+    [CurrentFirst | Rest] = Sublist,
+    NewFirst is CurrentFirst - 1,
+    replaceAtIndex(N, List, [NewFirst | Rest], Result).
+
+replaceAtIndex(Index, List, NewElement, Result) :-
+    nth0(Index, List, _, Temp),
+    nth0(Index, Result, NewElement, Temp).
+
+*/
+
+
+
+
 
 
 managePiece(Player):-

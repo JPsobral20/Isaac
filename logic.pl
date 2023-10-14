@@ -17,7 +17,7 @@ gamePlacePhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
     /*checkIfAtLeatsOnePlayerCanPlay(),*/
     placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewBoard),
     placePhasePlayerLight(NewBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, NewNewBoard),
-    gamePlacePhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer).
+    gamePlacePhaseLoop(NewNewBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer).
 
 
 
@@ -28,6 +28,8 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     managePiece(DarkPlayer),
     manageColumn(Column),
     manageRow(Row),
+    /*chooseDirection()*/
+    /*removePiece(Dakplayer, NewDarkPlayer)*/
 
     /*change board*/
     NewBoard = Board.  %mudar 
@@ -40,6 +42,8 @@ placePhasePlayerLight(Board, 'P', 'P', DarkPlayer, LightPlayer, NewBoard):-
     managePiece(LightPlayer),
     manageColumn(Column),
     manageRow(Row),
+    /*chooseDirection()*/
+    /*removePiece(LightPlayer, NewLightPlayer)*/
 
     /*change board*/
     NewBoard = Board. %mudar
