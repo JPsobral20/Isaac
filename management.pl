@@ -13,61 +13,62 @@ checkPiece6(Input, UpdatedInput) :-
     (Input = 6 -> UpdatedInput is Input - 1 ; UpdatedInput = Input).
 
 
-checkPieceInputValid(N, Player):-
+checkPieceInputValid(N, Player, Piece):-
     \+ member(N, [1, 2, 3, 4, 6]),
     write('\nERROR: invalid piece!\n\n'),
     write('Choose a piece: '),
     read(Input),
-    checkPieceInputValid(Input, Player).
+    checkPieceInputValid(Input, Player, Piece).
     /*, !.*/
 
 
-checkPieceInputValid(N, Player):-
+checkPieceInputValid(N, Player, Piece):-
     member(N, [1, 2, 3, 4, 6]),
-    checkHavePiece(N, Player).
+    checkHavePiece(N, Player, Piece).
 
 
-
-checkHavePiece(N, Player):-
+checkHavePiece(N, Player, Piece):-
     elementAtIndex(N, Player, Ele),
-    havePiece(Ele, Player).
+    havePiece(Ele, Player, Piece).
 
 
-havePiece([0|S], Player):-
+havePiece([0|S], Player, Piece):-
     write('\nNão tem peças de score '),
     elementAtIndex(1, S, Ele),
     write(Ele),
     write('\nEscolha outra!\n'),
-    managePiece(Player).
+    managePiece(Player, Piece).
     
     
-havePiece([N|S], Player):-
+havePiece([N|S], Player, Piece):-
     N \= 0,
     write('\n Tem '),
     write(N),
     write(' peças de score '),
     elementAtIndex(1, S, Ele),
-    write(Ele).
+    write(Ele),
+    Piece = Ele.
 
-
-managePiece(Player):-
+managePiece(Player, Piece):-
     write('\nChoose a piece: '),
     read(Input),
-    checkPieceInputValid(Input, Player).
+    checkPieceInputValid(Input, Player, Piece).
 
 
-/*
-decrementPiece(List, N, Result) :-
-    nth0(N, List, Sublist),
-    [CurrentFirst | Rest] = Sublist,
+
+decrementPiece([Sublist | Rest], N, NewDarkPlayer):-
+    N > 1,
+    N1 is N - 1,
+    decrementPiece(Rest, N1, UpdatedRest),
+    NewDarkPlayer = [Sublist | UpdatedRest].
+
+decrementPiece([Sublist | Rest], 1, NewDarkPlayer):-
+    [CurrentFirst | RestOfSublist] = Sublist,
     NewFirst is CurrentFirst - 1,
-    replaceAtIndex(N, List, [NewFirst | Rest], Result).
+    UpdatedSublist = [NewFirst | RestOfSublist],
+    NewDarkPlayer = [UpdatedSublist | Rest].
 
-replaceAtIndex(Index, List, NewElement, Result) :-
-    nth0(Index, List, _, Temp),
-    nth0(Index, Result, NewElement, Temp).
 
-*/
 
 
     
