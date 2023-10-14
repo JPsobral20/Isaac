@@ -19,8 +19,6 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
     placePhasePlayerLight(NewBoard, PlayerD, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer),
     placementPhaseLoop(NewNewBoard, PlayerD, PlayerL, NewDarkPlayer, LightPlayer). %mudar
 
-
-
 placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     /*checkIfDarkCanPlay(),*/
     printBoard(Board),
@@ -28,7 +26,7 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     managePiece(DarkPlayer, Piece),
     manageColumn(Column),
     manageRow(Row),
-    /*chooseDirection()*/
+    chooseDirection(Column, Row, Piece),
     decrementPiece(DarkPlayer, Piece, NewDarkPlayer),
 
     /*change board*/
@@ -42,7 +40,7 @@ placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
     managePiece(LightPlayer, Piece),
     manageColumn(Column),
     manageRow(Row),
-    /*chooseDirection()*/
+    chooseDirection(Column, Row),
     /*decrementPiece(LightPlayer, NewLightPlayer)*/
 
     /*change board*/

@@ -110,6 +110,36 @@ validColumn(Column) :-
     member(Column, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).
 
 
+chooseDirection(Column,Row,Piece):- 
+    write('\nChoose a direction (up,down,left,right): '),
+    read(Direction),
+    validateDirection(Direction, Column, Row, Piece).
+
+validateDirection(Direction, Column, Row, Piece) :-
+    \+ member(Direction, [up, down, left, right]),
+    write('\nThat direction is not valid!\n'),
+    write('\nChoose a direction (up,down,left,right): '),
+    read(NewDirection),
+    validateDirection(NewDirection, Column, Row, Piece).
+
+validateDirection(Direction, Column, Row) :-
+    member(Direction, [up, down, left, right]).
+    scoreLength(Piece, Length),
+    checkDirection(Direction, Column, Row, Length).
+
+checkDirection(up, Column, Row, Length):-           % Se a linha somada ao comprimento da peça for maior que 90, não é válido
+    (Row + (Length * 10) <= 90 ->
+        write('\nThat direction is valid!\n')
+        ;
+        write('\nThat direction is not valid!\n')
+    ).
+
+checkDirection(up, Column, Row, Length):-           % Se a linha subtraida ao comprimento da peça for menor que 0, não é válido
+    (Row - (Length * 10) >= 0 ->
+        write('\nThat direction is valid!\n')
+        ;
+        write('\nThat direction is not valid!\n')
+    ).
 
 
 /* não é relacionado com o nosso código
