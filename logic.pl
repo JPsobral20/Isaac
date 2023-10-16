@@ -33,7 +33,8 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     managePiece(DarkPlayer, Piece),     %verifivar_se_consegue_jogar_a_peca_que_escolheu
     manageColumn(Column),
     manageRow(Row),
-    chooseDirection(Column, Row, Piece, Board),
+    NewRow is 90 - Row,
+    chooseDirection(Column, NewRow, Piece, Board),
     decrementPiece(DarkPlayer, Piece, NewDarkPlayer),
 
     /*change board*/
@@ -54,8 +55,9 @@ placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
     managePiece(LightPlayer, Piece),    %verifivar_se_consegue_jogar_a_peca_que_escolheu
     manageColumn(Column),
     manageRow(Row),
+    NewColumn is 9 - Column,
     /* ver se consegue jogar a peça na posição que escolheu*/
-    chooseDirection(Column, Row, Piece, Board),
+    chooseDirection(NewColumn, Row, Piece, Board),
     decrementPiece(LightPlayer, Piece, NewLightPlayer),
 
 

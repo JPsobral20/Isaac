@@ -113,56 +113,59 @@ validColumn(Column) :-
 chooseDirection(Column, Row, Piece, Board):- 
     write('\nChoose a direction (up,down,left,right): '),
     read(Direction),
-    validateDirection(Direction, Column, Row, Piece),
-    validMove(Direction, Column, Row, Piece, Board).
+    validateDirection(Direction, Column, Row, Piece, Board).
 
 
-
-
-
-
-validateDirection(Direction, Column, Row, Piece) :-
+validateDirection(Direction, Column, Row, Piece, Board) :-
     \+ member(Direction, [up, down, left, right]),
     write('\nThat direction is not valid!\n'),
     write('\nChoose another direction (up,down,left,right): '),
     read(NewDirection),
-    validateDirection(NewDirection, Column, Row, Piece).
+    validateDirection(NewDirection, Column, Row, Piece, Board).
 
-validateDirection(Direction, Column, Row, Piece) :-
+validateDirection(Direction, Column, Row, Piece, Board) :-
     member(Direction, [up, down, left, right]),
     scoreLength(Piece, Length),
-    checkDirection(Direction, Column, Row, Length).
+    checkDirection(Direction, Column, Row, Length, Board).
 
-checkDirection(up, Column, Row, Length):-  
-    (Row + ((Length - 1) * 10) =< 90 ->
-        write('\nThat direction is valid!\n')
-    ;
-        write('\nThat direction is not valid!\n'),
-        scoreLength(Piece, Length),
-        chooseDirection(Column, Row, Piece, Board)
-    ).
-
-checkDirection(down, Column, Row, Length):-
+checkDirection(up, Column, Row, Length, Board):-  
     (Row - ((Length - 1) * 10) >= 0 ->
-        write('\nThat direction is valid!\n')
+        write('\nThat direction is valid!\n'),
+        Direction = up,
+        validMove(Direction, Column, Row, Length, Board)
     ;
         write('\nThat direction is not valid!\n'),
         scoreLength(Piece, Length),
         chooseDirection(Column, Row, Piece, Board)
     ).
 
-checkDirection(left, Column, Row, Length):-
+checkDirection(down, Column, Row, Length, Board):-
+    (Row + ((Length - 1) * 10) =< 90 ->
+        write('\nThat direction is valid!\n'),
+        Direction = down,
+        validMove(Direction, Column, Row, Length, Board)
+    ;
+        write('\nThat direction is not valid!\n'),
+        scoreLength(Piece, Length),
+        chooseDirection(Column, Row, Piece, Board)
+    ).
+
+checkDirection(left, Column, Row, Length, Board):-
     (Column - (Length - 1) >= 0 ->
-        write('\nThat direction is valid!\n')
+        write('\nThat direction is valid!\n'),
+        Direction = left,
+        validMove(Direction, Column, Row, Length, Board)
     ;
         write('\nThat direction is not valid!\n'),
         scoreLength(Piece, Length),
         chooseDirection(Column, Row, Piece, Board)
     ).
 
-checkDirection(right, Column, Row, Length):-
+checkDirection(right, Column, Row, Length, Board):-
     (Column + (Length - 1) =< 9  ->
-        write('\nThat direction is valid!\n')
+        write('\nThat direction is valid!\n'),
+        Direction = right,
+        validMove(Direction, Column, Row, Length, Board)
     ;
         write('\nThat direction is not valid!\n'),
         scoreLength(Piece, Length),
@@ -170,47 +173,44 @@ checkDirection(right, Column, Row, Length):-
     ).
 
 
-
-
-validMove(up, Column, Row, Piece, Board):-
-    scoreLength(Piece, Length),
-    NewRow is Row div 10.
-
-
-
-validMove(down, Column, Row, Piece, Board):-
-    scoreLength(Piece, Length),
-    NewRow is Row div 10.
-
-
-validMove(left, Column, Row, Piece, Board):-
-    scoreLength(Piece, Length),
-    NewRow is Row div 10.
-
-
-validMove(right, Column, Row, Piece, Board):-
-    scoreLength(Piece, Length),
+validMove(Direction, Column, Row, Length, Board):-
     NewRow is Row div 10,
-    checkPositionsRight(Board, Column, NewRow, Length, Success),
+    checkPositions(Direction, Board, Column, NewRow, Length, Success),
     (Success =:= 0 -> nl ; chooseDirection(Column, Row, Piece, Board)).
 
 
-checkPositionsRight(Board, Column, Row, Length, FinalLength):-
-    Length == 0,
+checkPositions(_, _, _, _, 0, FinalLength):-
     FinalLength = 0.
 
-checkPositionsRight(Board, Column, Row, Length, FinalLength):-
+checkPositions(Direction, Board, Column, Row, Length, FinalLength):-
     Length > 0,
     elementAt(Board, Row, RowList),
     elementAt(RowList, Column, Element),
     (Element =:= 0 ->
-        NewColumn is Column + 1,
+        updateColumAndRow(Direction, Column, Row, NewColumn, NewRow),
         NewLength is Length - 1,
-        checkPositionsRight(Board, NewColumn, Row, NewLength, FinalLength)   %mudar o nome
+        checkPositions(Direction, Board, NewColumn, NewRow, NewLength, FinalLength)
     ;
         FinalLength = Length,
         nl
     ).
+
+updateColumAndRow(up, Column, Row, NewColumn, NewRow):-
+    NewColumn is Column,
+    NewRow is Row - 1.
+
+updateColumAndRow(down, Column, Row, NewColumn, NewRow):-
+    NewColumn is Column,
+    NewRow is Row + 1.
+
+updateColumAndRow(right, Column, Row, NewColumn, NewRow):-
+    NewRow is Row,
+    NewColumn is Column + 1.
+
+updateColumAndRow(left, Column, Row, NewColumn, NewRow):-
+    NewRow is Row,
+    NewColumn is Column - 1.
+
 
 % Predicado para acessar um elemento em uma lista dada uma posição
 elementAt(List, Index, Element) :-
