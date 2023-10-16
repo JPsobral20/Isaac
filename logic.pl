@@ -23,10 +23,10 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     /*checkIfDarkCanPlay(),*/
     printBoard(Board),
     write('\n------------------ PLAYER Dark -------------------\n'),
-    managePiece(DarkPlayer, Piece),
+    managePiece(DarkPlayer, Piece),     %verifivar_se_consegue_jogar_a_peca_que_escolheu
     manageColumn(Column),
     manageRow(Row),
-    chooseDirection(Column, Row, Piece),
+    chooseDirection(Column, Row, Piece, Board),
     decrementPiece(DarkPlayer, Piece, NewDarkPlayer),
 
     /*change board*/
@@ -37,11 +37,13 @@ placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
     /*checkIfLightCanPlay(),*/
     printBoard(Board),
     write('\n------------------ PLAYER Light -------------------\n\n'),
-    managePiece(LightPlayer, Piece),
+    managePiece(LightPlayer, Piece),    %verifivar_se_consegue_jogar_a_peca_que_escolheu
     manageColumn(Column),
     manageRow(Row),
-    chooseDirection(Column, Row, Piece),
+    /* ver se consegue jogar a peça na posição que escolheu*/
+    chooseDirection(Column, Row, Piece, Board),
     decrementPiece(LightPlayer, Piece, NewLightPlayer),
+
 
     /*change board*/
     NewBoard = Board. %mudar
