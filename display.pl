@@ -44,7 +44,22 @@ rows(90, '90').
 printPieces(PlayerDark, PlayerLight):-
   */  
 
+getNumberPiece(Score,Player,Number):- 
+    member([Number,Score],Player).
 
+printMenuPieces(Score,Player):-
+    write('\n\n'),
+    scoreLength(Score, Length),
+    format("Piece score ~w: ", [Score]),
+    getNumberPiece(Score,Player,Number),
+    printPiece(Length,Number).
+
+printPiece(0,NumPieces):- format("x~w",[NumPieces]).
+printPiece(N,NumPieces):-
+    N > 0,
+    write('[]'),
+    N1 is N - 1,
+    printPiece(N1,NumPieces).
 
 printBoard(X):-
     nl,

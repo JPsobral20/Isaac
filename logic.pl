@@ -22,7 +22,14 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
 placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     /*checkIfDarkCanPlay(),*/
     printBoard(Board),
-    write('\n------------------ PLAYER Dark -------------------\n'),
+    /* Secalhar precisa de refactoring esta parte para baixo*/
+    write('\n Your pieces (DarkPlayer):'),
+    printMenuPieces(1,DarkPlayer),
+    printMenuPieces(2,DarkPlayer),
+    printMenuPieces(3,DarkPlayer),
+    printMenuPieces(4,DarkPlayer),
+    printMenuPieces(6,DarkPlayer), 
+    write('\n\n------------------ PLAYER Dark -------------------\n'),
     managePiece(DarkPlayer, Piece),     %verifivar_se_consegue_jogar_a_peca_que_escolheu
     manageColumn(Column),
     manageRow(Row),
@@ -36,7 +43,14 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
 placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
     /*checkIfLightCanPlay(),*/
     printBoard(Board),
-    write('\n------------------ PLAYER Light -------------------\n\n'),
+    /* Secalhar precisa de refactoring esta parte para baixo*/
+    write('\n Your pieces (LightPlayer):'),
+    printMenuPieces(1,LightPlayer),
+    printMenuPieces(2,LightPlayer),
+    printMenuPieces(3,LightPlayer),
+    printMenuPieces(4,LightPlayer),
+    printMenuPieces(6,LightPlayer), 
+    write('\n\n------------------ PLAYER Light -------------------\n\n'),
     managePiece(LightPlayer, Piece),    %verifivar_se_consegue_jogar_a_peca_que_escolheu
     manageColumn(Column),
     manageRow(Row),
