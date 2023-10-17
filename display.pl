@@ -22,8 +22,8 @@ scoreLength(3,5).
 scoreLength(4,6).
 scoreLength(6,7).
 
-symbol(0,' ').
-symbol(1, 1).
+symbol(0, '   ').
+symbol(1, '0D1').
 
 symbol(5,S):- S='0D1'.
 symbol(5,S):- S='1D1'.
@@ -38,11 +38,7 @@ rows(60, '60').
 rows(70, '70').
 rows(80, '80').
 rows(90, '90').
-
-
-/*
-printPieces(PlayerDark, PlayerLight):-
-  */  
+ 
 
 getNumberPiece(Score,Player,Number):- 
     member([Number,Score],Player).
@@ -73,7 +69,7 @@ printMatrix([Head|Tail], ND, NL):-
     write(' '),
     write(RD),
     ND1 is ND - 10,
-    write(' | '),
+    write(' |'),
     printLine(Head),
     rows(NL, RL),
     write(' '),
@@ -87,5 +83,5 @@ printLine([]).
 printLine([Head|Tail]):-
     symbol(Head, S),
     write(S),
-    write(' | '),
+    write('|'),
     printLine(Tail).
