@@ -126,15 +126,13 @@ checkEmptySquare(Board, Column, Row, Player):-
     checkEle(Element, Board, Player).
 
 
-checkEle(Element, Board, Player):-
+checkEle(Element, Board, dark):-
     Element \= 0,
-    Player == dark,
-    manageSquareDark(Board).
+    manageSquareDark(Board, Column, Row).
 
-checkEle(Element, Board, Player):-
+checkEle(Element, Board, light):-
     Element \= 0,
-    Player == light,
-    manageSquareDark(Board).
+    manageSquareDark(Board, Column, Row).
 
 checkEle(0, _, _).
 
