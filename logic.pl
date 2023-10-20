@@ -2,25 +2,43 @@ startGame(PlayerD, PlayerL):-
     initialMatrix(InitialBoard),
     darkPlayer(DarkPlayer),
     lightPlayer(LightPlayer),
-    placementPhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer).
+    placementPhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard).
+    /*printEndPlacementPhase(),*/
     /*scoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
 
 
-/*
-checkIfAtLeatsOnePlayerCanPlay():-
-    checkIfDarkCanPlay();
-    checkIfLightCanPlay().
-*/
 
-placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer):-
 
-    /*checkIfAtLeatsOnePlayerCanPlay(),*/
-    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, NewBoard, NewDarkPlayer),
-    placePhasePlayerLight(NewBoard, PlayerD, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer),
-    placementPhaseLoop(NewNewBoard, PlayerD, PlayerL, NewDarkPlayer, NewLightPlayer). 
+var_empty(X):-
+    var(X).
+
+placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard):-
+
+   
+    (checkIfPlayerCanPlay(Board, DarkPlayer) -> 
+    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, NewBoard, NewDarkPlayer)
+    ;
+    true
+    ),
+
+    (var_empty(NewBoard) -> NewBoard = Board, NewDarkPlayer = DarkPlayer ; true),
+    
+  
+
+    (checkIfPlayerCanPlay(NewBoard, LightPlayer) ->
+    
+    placePhasePlayerLight(NewBoard, PlayerD, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer)
+    ;
+    true
+    ),
+    
+    (var_empty(NewNewBoard) -> NewNewBoard = NewBoard, NewLightPlayer = LightPlayer ; true),
+    
+    (Board == NewNewBoard -> FinalBoard = Board; placementPhaseLoop(NewNewBoard, PlayerD, PlayerL, NewDarkPlayer, NewLightPlayer, _)).
+
+
 
 placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
-    /*checkIfDarkCanPlay(),*/
     printBoard(Board),
     /* Secalhar precisa de refactoring esta parte para baixo*/
     write('\n Your pieces (DarkPlayer):'),
@@ -30,17 +48,17 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     printMenuPieces(4,DarkPlayer),
     printMenuPieces(6,DarkPlayer), 
     write('\n\n------------------ PLAYER Dark -------------------\n'),
-    managePiece(DarkPlayer, Piece),     %verifivar_se_consegue_jogar_a_peca_que_escolheu
-    manageSquareDark(Board, Column, Row),
+    managePiece(DarkPlayer, Piece, Board),
+    manageSquareDark(Board, Column, Row, Piece),       
     chooseDirection(Column, Row, Piece, Board, Direction),
-    decrementPiece(DarkPlayer, Piece, NewDarkPlayer),
-
+    printPieceOnBoard(Column, Row, Piece, Board, Direction, DarkPlayer, "D", AfterBoard),
+    decrementPiece(DarkPlayer, Piece, UpdateDarkPlayer),
+    NewDarkPlayer = UpdateDarkPlayer,
     /*change board*/
-    NewBoard = Board.  %mudar 
+    NewBoard = AfterBoard. 
 
 
 placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
-    /*checkIfLightCanPlay(),*/
     printBoard(Board),
     /* Secalhar precisa de refactoring esta parte para baixo*/
     write('\n Your pieces (LightPlayer):'),
@@ -50,14 +68,14 @@ placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
     printMenuPieces(4,LightPlayer),
     printMenuPieces(6,LightPlayer), 
     write('\n\n------------------ PLAYER Light -------------------\n\n'),
-    managePiece(LightPlayer, Piece),    %verifivar_se_consegue_jogar_a_peca_que_escolheu
-    manageSquareLight(Board, Column, Row),
+    managePiece(LightPlayer, Piece, Board),
+    manageSquareLight(Board, Column, Row, Piece),      
     chooseDirection(Column, Row, Piece, Board, Direction),
-    decrementPiece(LightPlayer, Piece, NewLightPlayer),
-
-
+    printPieceOnBoard(Column, Row, Piece, Board, Direction, LightPlayer, "L", AfterBoard),
+    decrementPiece(LightPlayer, Piece, UpdateLightPlayer),
+    NewLightPlayer = UpdateLightPlayer,
     /*change board*/
-    NewBoard = Board. %mudar
+    NewBoard = AfterBoard. 
 
 
 
