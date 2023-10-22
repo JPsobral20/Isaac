@@ -130,8 +130,8 @@ selectPiece(N, Player, Piece, Board):-
 
 
 % Checks if player has the piece
-checkHavePiece([0|S], Player, Piece, Board):-
-    write('\nDont have that piece!\n')
+checkHavePiece([0|_], Player, Piece, Board):-
+    write('\nDont have that piece!\n'),
     write('\nChoose other!\n'),
     managePiece(Player, Piece, Board).
     
