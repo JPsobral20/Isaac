@@ -1,3 +1,4 @@
+% Defines the initial game board matrix with all positions initialized to 0. The matrix represents the game board.
 initialMatrix([
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -12,10 +13,12 @@ initialMatrix([
 ]).
 
 
+% Define the players pieces. Each player has a list of the number of each piece that he has.
 darkPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
 
 lightPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
 
+% Specifies the size of the piece for each score.
 scoreLength(1,3).
 scoreLength(2,4).
 scoreLength(3,5).
@@ -23,7 +26,6 @@ scoreLength(4,6).
 scoreLength(6,7).
 
 symbol(0, '   ').
-symbol(1, ' 1 ').
 % Peças para escrever no board , [68] é a lista quando fazemos "D" e [76] é a lista quando fazemos "L"
 symbol(5-[68]-1,'5D1').
 symbol(4-[68]-1,'4D1').
@@ -86,11 +88,14 @@ printPiece(N,NumPieces):-
     N1 is N - 1,
     printPiece(N1,NumPieces).
 
+
+% Prints the game board
 printBoard(X):-
     nl,
     write('    | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |\n'),
     printMatrix(X, 90, 0).
 
+% Prints the board matrix
 printMatrix([], -10, 100):- write('    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |\n').
 
 printMatrix([Head|Tail], ND, NL):-
@@ -107,6 +112,7 @@ printMatrix([Head|Tail], ND, NL):-
     nl,
     printMatrix(Tail, ND1, NL1).
 
+% Prints a row of the board
 printLine([]).
 
 printLine([Head|Tail]):-

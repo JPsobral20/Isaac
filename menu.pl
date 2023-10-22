@@ -7,6 +7,7 @@ mainMenu:-
 printMenuOption:-
     write('Insert your option: ').
 
+% Checks input
 checkInput(1):-
     startGame('P','P'),
     mainMenu.
@@ -29,7 +30,7 @@ checkInput(_):-
     checkInput(Input).
 
     
-
+% Prints the main menu
 printMainMenu:-
     nl,nl,
     write(' _______________________________________________________________________ '),nl,

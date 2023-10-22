@@ -16,7 +16,7 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard)
 
    
     (checkIfPlayerCanPlay(Board, DarkPlayer) -> 
-    placePhasePlayerDark(Board, PlayerD, PlayerL, DarkPlayer, NewBoard, NewDarkPlayer)
+    placePhasePlayerDark(Board, PlayerD, DarkPlayer, NewBoard, NewDarkPlayer)
     ;
     true
     ),
@@ -27,7 +27,7 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard)
 
     (checkIfPlayerCanPlay(NewBoard, LightPlayer) ->
     
-    placePhasePlayerLight(NewBoard, PlayerD, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer)
+    placePhasePlayerLight(NewBoard, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer)
     ;
     true
     ),
@@ -38,7 +38,7 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard)
 
 
 
-placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
+placePhasePlayerDark(Board, 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     printBoard(Board),
     /* Secalhar precisa de refactoring esta parte para baixo*/
     write('\n Your pieces (DarkPlayer):'),
@@ -58,7 +58,7 @@ placePhasePlayerDark(Board, 'P', 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     NewBoard = AfterBoard. 
 
 
-placePhasePlayerLight(Board, 'P', 'P', LightPlayer, NewBoard, NewLightPlayer):-
+placePhasePlayerLight(Board, 'P', LightPlayer, NewBoard, NewLightPlayer):-
     printBoard(Board),
     /* Secalhar precisa de refactoring esta parte para baixo*/
     write('\n Your pieces (LightPlayer):'),
