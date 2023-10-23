@@ -339,8 +339,6 @@ validMove(Direction, Column, Row, Length, Board, RetDirection):-
 
 % Print Piece On Board
 
-
-
 printPieceOnBoard(Column, Row, Piece, Board, right, Player, Acronym, AfterBoard):-
     getNumberPiece(Piece,Player,Number),
     Element = Number-Acronym-Piece,
@@ -384,6 +382,8 @@ updateColumn(Board, Column, RowIndex, EndRow, Piece, UpdatedBoard) :-
     updateColumn(Board, Column, NewRowIndex, EndRow, Piece, RestOfBoard),
     replaceRowBoard(RestOfBoard, RowIndex, UpdatedRow, UpdatedBoard).
 
+
+% Update the row in a new Board
 replaceRowBoard([], _, _, []).
 replaceRowBoard([_|T], 0, NewRow, [NewRow|T]).
 replaceRowBoard([H|T], Index, NewRow, [H|NewT]) :-
@@ -391,14 +391,15 @@ replaceRowBoard([H|T], Index, NewRow, [H|NewT]) :-
     NewIndex is Index - 1,
     replaceRowBoard(T, NewIndex, NewRow, NewT).
 
+% Change the row to the new element
 
 updateRow([], _, _, _, []).
-updateRow([_|T], 0, 0, NewElement, [NewElement|T]). % É o primeiro na lista
-updateRow([_|T], 0, NTimesElement, NewElement, [NewElement|NewT]) :- % Quando chega ao intervalo ele vai substituir o elemento e fazer a recursao para o resto(tail)
+updateRow([_|T], 0, 0, NewElement, [NewElement|T]). % It is the first in the list
+updateRow([_|T], 0, NTimesElement, NewElement, [NewElement|NewT]) :- % When it reaches the interval it will replace the element and do the recursion for the rest (tail)
     NTimesElement > 0,
     NewNTimesElement is NTimesElement - 1,
     updateRow(T, 0, NewNTimesElement, NewElement, NewT).
-updateRow([H|T], StartIndex, NTimesElement, NewElement, [H|NewT]) :- % Se ainda não chegou ao intervalo ele vai manter a cabeça da lista e fazer a recursao para o resto(tail)
+updateRow([H|T], StartIndex, NTimesElement, NewElement, [H|NewT]) :- % If it has not yet reached the interval it will keep the head of the list and do the recursion for the rest (tail)
     StartIndex > 0,
     NewStartIndex is StartIndex - 1,
     updateRow(T, NewStartIndex,  NTimesElement, NewElement, NewT).

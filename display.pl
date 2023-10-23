@@ -13,7 +13,7 @@ initialMatrix([
 ]).
 
 
-% Define the players pieces. Each player has a list of the number of each piece that he has.
+% Define the players pieces. Each player has a list of the number of each piece that he has. Represented as [NumberOfPieces, ScorePiece]
 darkPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
 
 lightPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
@@ -26,7 +26,9 @@ scoreLength(4,6).
 scoreLength(6,7).
 
 symbol(0, '   ').
-% Peças para escrever no board , [68] é a lista quando fazemos "D" e [76] é a lista quando fazemos "L"
+
+/* All the pieces to write on the board, [68] is the list when we do "D" and [76] is the list when we do "L", 
+the first number is the number of pieces and the last is the score of that piece */
 symbol(5-[68]-1,'5D1').
 symbol(4-[68]-1,'4D1').
 symbol(3-[68]-1,'3D1').
@@ -58,7 +60,6 @@ symbol(2-[76]-4,'2L4').
 symbol(1-[76]-4,'1L4').
 symbol(1-[76]-6,'1L6').
 
-
 rows(0, ' 0').
 rows(10, '10').
 rows(20, '20').
@@ -70,10 +71,11 @@ rows(70, '70').
 rows(80, '80').
 rows(90, '90').
  
-
+% Get the number of pieces of a player
 getNumberPiece(Score,Player,Number):- 
     member([Number,Score],Player).
 
+% Prints the pieces that each player has
 printMenuPieces(Score,Player):-
     write('\n\n'),
     scoreLength(Score, Length),
