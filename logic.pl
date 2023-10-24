@@ -6,9 +6,13 @@ startGame(PlayerD, PlayerL):-
     /*printEndPlacementPhase(),*/
     /*scoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
 
+/*
+printHaveToPass(Player):-
+*/
 
 
 
+% Checks if a variable is empty
 var_empty(X):-
     var(X).
 
@@ -19,6 +23,7 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard)
     (checkIfPlayerCanPlay(Board, DarkPlayer) -> 
     placePhasePlayerDark(Board, PlayerD, DarkPlayer, NewBoard, NewDarkPlayer)
     ;
+    /*printHaveToPass(dark),*/
     true
     ),
 
@@ -30,6 +35,7 @@ placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard)
     
     placePhasePlayerLight(NewBoard, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer)
     ;
+    /*printHaveToPass(light)*/
     true
     ),
     
@@ -55,7 +61,7 @@ placePhasePlayerDark(Board, 'P', DarkPlayer, NewBoard, NewDarkPlayer):-
     printPieceOnBoard(Column, Row, Piece, Board, Direction, DarkPlayer, "D", AfterBoard), % Place the piece on the board
     decrementPiece(DarkPlayer, Piece, UpdateDarkPlayer), % Decrement the number of pieces for that piece in the player
     NewDarkPlayer = UpdateDarkPlayer, % Update the player list with the new number of pieces
-    /*change board*/
+   
     NewBoard = AfterBoard. % Update the board with the new piece placed
 
 % The actions of the placement phase for the LightPlayer
@@ -75,7 +81,7 @@ placePhasePlayerLight(Board, 'P', LightPlayer, NewBoard, NewLightPlayer):-
     printPieceOnBoard(Column, Row, Piece, Board, Direction, LightPlayer, "L", AfterBoard), % Place the piece on the board
     decrementPiece(LightPlayer, Piece, UpdateLightPlayer), % Decrement the number of pieces for that piece in the player
     NewLightPlayer = UpdateLightPlayer, % Update the player list with the new number of pieces
-    /*change board*/
+
     NewBoard = AfterBoard. % Update the board with the new piece placed
 
 

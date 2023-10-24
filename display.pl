@@ -29,36 +29,36 @@ symbol(0, '   ').
 
 /* All the pieces to write on the board, [68] is the list when we do "D" and [76] is the list when we do "L", 
 the first number is the number of pieces and the last is the score of that piece */
-symbol(5-[68]-1,'5D1').
-symbol(4-[68]-1,'4D1').
-symbol(3-[68]-1,'3D1').
-symbol(2-[68]-1,'2D1').
-symbol(1-[68]-1,'1D1').
-symbol(4-[68]-2,'4D2').
-symbol(3-[68]-2,'3D2').
-symbol(2-[68]-2,'2D2').
-symbol(1-[68]-2,'1D2').
-symbol(3-[68]-3,'3D3').
-symbol(2-[68]-3,'2D3').
-symbol(1-[68]-3,'1D3').
-symbol(2-[68]-4,'2D4').
-symbol(1-[68]-4,'1D4').
-symbol(1-[68]-6,'1D6').
-symbol(5-[76]-1,'5L1').
-symbol(4-[76]-1,'4L1').
-symbol(3-[76]-1,'3L1').
-symbol(2-[76]-1,'2L1').
-symbol(1-[76]-1,'1L1').
-symbol(4-[76]-2,'4L2').
-symbol(3-[76]-2,'3L2').
-symbol(2-[76]-2,'2L2').
-symbol(1-[76]-2,'1L2').
-symbol(3-[76]-3,'3L3').
-symbol(2-[76]-3,'2L3').
-symbol(1-[76]-3,'1L3').
-symbol(2-[76]-4,'2L4').
-symbol(1-[76]-4,'1L4').
-symbol(1-[76]-6,'1L6').
+symbol(5-[68]-1, '5D1').
+symbol(4-[68]-1, '4D1').
+symbol(3-[68]-1, '3D1').
+symbol(2-[68]-1, '2D1').
+symbol(1-[68]-1, '1D1').
+symbol(4-[68]-2, '4D2').
+symbol(3-[68]-2, '3D2').
+symbol(2-[68]-2, '2D2').
+symbol(1-[68]-2, '1D2').
+symbol(3-[68]-3, '3D3').
+symbol(2-[68]-3, '2D3').
+symbol(1-[68]-3, '1D3').
+symbol(2-[68]-4, '2D4').
+symbol(1-[68]-4, '1D4').
+symbol(1-[68]-6, '1D6').
+symbol(5-[76]-1, '5L1').
+symbol(4-[76]-1, '4L1').
+symbol(3-[76]-1, '3L1').
+symbol(2-[76]-1, '2L1').
+symbol(1-[76]-1, '1L1').
+symbol(4-[76]-2, '4L2').
+symbol(3-[76]-2, '3L2').
+symbol(2-[76]-2, '2L2').
+symbol(1-[76]-2, '1L2').
+symbol(3-[76]-3, '3L3').
+symbol(2-[76]-3, '2L3').
+symbol(1-[76]-3, '1L3').
+symbol(2-[76]-4, '2L4').
+symbol(1-[76]-4, '1L4').
+symbol(1-[76]-6, '1L6').
 
 rows(0, ' 0').
 rows(10, '10').
@@ -81,12 +81,13 @@ printMenuPieces(Score,Player):-
     scoreLength(Score, Length),
     format("Piece score ~w: ", [Score]),
     getNumberPiece(Score,Player,Number),
+    write('|'),
     printPiece(Length,Number).
 
-printPiece(0,NumPieces):- format("x~w",[NumPieces]).
+printPiece(0,NumPieces):-format("x~w",[NumPieces]).
 printPiece(N,NumPieces):-
     N > 0,
-    write('[]'),
+    write('_|'),
     N1 is N - 1,
     printPiece(N1,NumPieces).
 
@@ -95,7 +96,12 @@ printPiece(N,NumPieces):-
 printBoard(X):-
     nl,
     write('    | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |\n'),
+    printLineBoard,
     printMatrix(X, 90, 0).
+
+printLineBoard:-
+    write(' -----------------------------------------------\n').
+
 
 % Prints the board matrix
 printMatrix([], -10, 100):- write('    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |\n').
@@ -112,6 +118,7 @@ printMatrix([Head|Tail], ND, NL):-
     write(RL),
     NL1 is NL + 10,
     nl,
+    printLineBoard,
     printMatrix(Tail, ND1, NL1).
 
 % Prints a row of the board

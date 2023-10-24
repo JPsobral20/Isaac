@@ -16,13 +16,10 @@ checkHorizontal(Board, [Piece|Rest]):-
     (NumberPieces \= 0 ->
 
     checkConsecutiveZeros(Board, Length)
-
     ;
-
     checkHorizontal(Board, Rest)
     
     ).
-
 
 % Check consecutive zeros
 checkConsecutiveZeros(Matrix, N):-
@@ -110,8 +107,8 @@ managePiece(Player, Piece, Board):-
 % Checks if the input is valid
 checkPieceInputValid(N, Player, Piece, Board):-
     \+ member(N, [1, 2, 3, 4, 6]),
-    write('\nERROR: invalid piece!\n\n'),
-    write('Choose other piece: '),
+    write('\nERROR: invalid piece!\n'),
+    write('\nChoose other piece: '),
     read(Input),
     checkPieceInputValid(Input, Player, Piece, Board).
     /*, !.*/
@@ -238,7 +235,7 @@ checkEle(0, Board, dark, Column, Row, RetColumn, RetRow, Piece):-
         RetColumn is Column,
         RetRow is Row
     ;
-        write('\nCant play piece there\n'),nl,
+        write('\nCant play piece there!\n'),
         manageSquareDark(Board, RetColumn, RetRow, Piece)
     ).
 
@@ -248,7 +245,7 @@ checkEle(0, Board, light, Column, Row, RetColumn, RetRow, Piece):-
     RetColumn is Column,
     RetRow is Row
     ;
-    write('\nCant play piece there\n'),nl,
+    write('\nCant play piece there!\n'),
     manageSquareLight(Board, RetColumn, RetRow, Piece)
     ).
 

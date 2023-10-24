@@ -13,11 +13,11 @@ checkInput(1):-
     mainMenu.
 
 checkInput(2):-
-    /*startGame('P','C'),*/
+    /*Print Bot Options*/
     mainMenu.
 
 checkInput(3):-
-    /*startGame('C','C'),*/
+    /*print more bot options*/
     mainMenu.
 
 checkInput(0):-
@@ -49,6 +49,8 @@ printMainMenu:-
     write('|                          2. Player vs Computer                        |'),nl,
     write('|                                                                       |'),nl,
 	write('|                          3. Computer vs Computer                      |'),nl,
+    write('|                                                                       |'),nl,
+    write('|                          4. Rules                                     |'),nl,
     write('|                                                                       |'),nl,
     /*write('|                          9. Credits                                   |'),nl,*/
     write('|                                                                       |'),nl,
