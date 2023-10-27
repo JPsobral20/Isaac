@@ -1,5 +1,5 @@
 % Checks if player can play horizontally and vertically
-checkIfPlayerCanPlay(Board, Player):-
+checkIfPlayerCanPlayPlacementPhase(Board, Player):-
     checkHorizontal(Board, Player);
     (transpose(Board, NewBoard),
     checkHorizontal(NewBoard, Player)).
@@ -106,7 +106,8 @@ managePiece(Player, Piece, Board):-
 
 % Checks if the input is valid
 checkPieceInputValid(N, Player, Piece, Board):-
-    \+ member(N, [1, 2, 3, 4, 6]),
+    (\+ member(N, [1, 2, 3, 4, 6]);
+    \+ number(N)),
     write('\nERROR: invalid piece!\n'),
     write('\nChoose other piece: '),
     read(Input),
@@ -114,6 +115,7 @@ checkPieceInputValid(N, Player, Piece, Board):-
     /*, !.*/
 
 checkPieceInputValid(N, Player, Piece, Board):-
+    number(N),
     member(N, [1, 2, 3, 4, 6]),
     selectPiece(N, Player, Piece, Board).
 
@@ -188,6 +190,7 @@ validateColumn(_, NewColumn):-
     manageColumn(NewColumn).
 
 validColumn(Column):-
+    number(Column),
     member(Column, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).
 
 
@@ -207,6 +210,7 @@ validateRow(_, NewRow):-
     manageRow(NewRow).
 
 validRow(Row):-
+    number(Row),
     member(Row, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]).
 
 
@@ -287,7 +291,6 @@ validateDirection(Direction, Column, Row, Piece, Board, RetDirection):-
 
 checkDirection(up, Column, Row, Length, Board, RetDirection):-  
     (Row - (Length - 1) >= 0 ->
-        write('\nThat direction is valid!\n'),
         validMove(up, Column, Row, Length, Board, RetDirection)
     ;
         write('\nThat direction is not valid!\n'),
@@ -297,7 +300,6 @@ checkDirection(up, Column, Row, Length, Board, RetDirection):-
 
 checkDirection(down, Column, Row, Length, Board, RetDirection):-
     (Row + (Length - 1) =< 9 ->
-        write('\nThat direction is valid!\n'),
         validMove(down, Column, Row, Length, Board, RetDirection)
     ;
         write('\nThat direction is not valid!\n'),
@@ -307,7 +309,6 @@ checkDirection(down, Column, Row, Length, Board, RetDirection):-
 
 checkDirection(left, Column, Row, Length, Board, RetDirection):-
     (Column - (Length - 1) >= 0 ->
-        write('\nThat direction is valid!\n'),
         validMove(left, Column, Row, Length, Board, RetDirection)
     ;
         write('\nThat direction is not valid!\n'),
@@ -317,7 +318,6 @@ checkDirection(left, Column, Row, Length, Board, RetDirection):-
 
 checkDirection(right, Column, Row, Length, Board, RetDirection):-
     (Column + (Length - 1) =< 9  ->
-        write('\nThat direction is valid!\n'),
         validMove(right, Column, Row, Length, Board, RetDirection)
     ;
         write('\nThat direction is not valid!\n'),
@@ -329,7 +329,7 @@ checkDirection(right, Column, Row, Length, Board, RetDirection):-
 validMove(Direction, Column, Row, Length, Board, RetDirection):-
     checkPositions(Direction, Board, Column, Row, Length, Success),
     scoreLength(Piece, Length),
-    (Success =:= 0 -> RetDirection = Direction ; chooseDirection(Column, Row, Piece, Board, RetDirection)).
+    (Success =:= 0 -> RetDirection = Direction ; write('\nThat direction is not valid!\n'), chooseDirection(Column, Row, Piece, Board, RetDirection)).
 
 
 

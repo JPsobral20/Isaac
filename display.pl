@@ -26,6 +26,7 @@ scoreLength(4,6).
 scoreLength(6,7).
 
 symbol(0, '   ').
+symbol(1, ' 1 ').
 
 /* All the pieces to write on the board, [68] is the list when we do "D" and [76] is the list when we do "L", 
 the first number is the number of pieces and the last is the score of that piece */
@@ -79,6 +80,7 @@ getNumberPiece(Score,Player,Number):-
 printMenuPieces(Score,Player):-
     write('\n\n'),
     scoreLength(Score, Length),
+    printRestPiece(Length),
     format("Piece score ~w: ", [Score]),
     getNumberPiece(Score,Player,Number),
     write('|'),
@@ -91,6 +93,27 @@ printPiece(N,NumPieces):-
     N1 is N - 1,
     printPiece(N1,NumPieces).
 
+
+
+printRestPiece(3):- 
+    write('                '),
+    write('_ _ _\n').
+
+printRestPiece(4):-
+    write('                '),
+    write('_ _ _ _\n').
+
+printRestPiece(5):-
+    write('                '),
+    write('_ _ _ _ _\n').
+
+printRestPiece(6):-
+    write('                '),
+    write('_ _ _ _ _ _\n').
+
+printRestPiece(7):-
+    write('                '),
+    write('_ _ _ _ _ _ _\n').
 
 % Prints the game board
 printBoard(X):-

@@ -2,46 +2,52 @@ startGame(PlayerD, PlayerL):-
     initialMatrix(InitialBoard),
     darkPlayer(DarkPlayer),
     lightPlayer(LightPlayer),
-    placementPhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard).
-    /*printEndPlacementPhase(),*/
-    /*scoringPhaseLoop(PlacePhaseBoard, PlayerD, PlayerL, ScorinPhaseBoard).*/
+    placementPhaseLoop(InitialBoard, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalPlacementPhaseBoard, FinalDarkPlayer, FinalLightPlayer),
+    printEndPlacementPhase.
+    /*scoringPhaseLoop(FinalPlacementPhaseBoard, PlayerD, PlayerL, UpdateBoard, 0, 0, FinalScoreDark, FinalScoreLight),*/
+    /*checkWhoWon(FinalScoreDark, FinalScoreLight, FinalDarkPlayer, FinalLightPlayer).*/
 
-/*
 printHaveToPass(Player):-
-*/
+    write('\n\n------------------ PLAYER '),
+    write(Player),
+    write(' -------------------\n\n'),
+    write('You have to pass this turn because you can not place any more pieces on the board.\n\n').
 
-
+printEndPlacementPhase:-
+    write('\n\n------------------ END OF PLACEMENT PHASE -------------------\n\n'),
+    write('The placement phase is over because both players can not place any more pieces on the board.\n\n'),
+    write('The game will now proceed to the scoring phase.\n\n').
 
 % Checks if a variable is empty
 var_empty(X):-
     var(X).
 
 % A loop that allows players to place their pieces on the board alternately until the placement phase is completed (when they can not place any more pieces on the board)
-placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard):-
+placementPhaseLoop(Board, PlayerD, PlayerL, DarkPlayer, LightPlayer, FinalBoard, UpdateDarkPlayer, UpdateLightPlayer):-
 
    
-    (checkIfPlayerCanPlay(Board, DarkPlayer) -> 
+    (checkIfPlayerCanPlayPlacementPhase(Board, DarkPlayer) -> 
     placePhasePlayerDark(Board, PlayerD, DarkPlayer, NewBoard, NewDarkPlayer)
     ;
-    /*printHaveToPass(dark),*/
-    true
+    printHaveToPass(dark)
     ),
 
     (var_empty(NewBoard) -> NewBoard = Board, NewDarkPlayer = DarkPlayer ; true),
     
-  
+    UpdateDarkPlayer = NewDarkPlayer,
 
-    (checkIfPlayerCanPlay(NewBoard, LightPlayer) ->
+    (checkIfPlayerCanPlayPlacementPhase(NewBoard, LightPlayer) ->
     
     placePhasePlayerLight(NewBoard, PlayerL, LightPlayer, NewNewBoard, NewLightPlayer)
     ;
-    /*printHaveToPass(light)*/
-    true
+    printHaveToPass(light)
     ),
-    
+
+    UpdateLightPlayer = NewLightPlayer,
+
     (var_empty(NewNewBoard) -> NewNewBoard = NewBoard, NewLightPlayer = LightPlayer ; true),
     
-    (Board == NewNewBoard -> FinalBoard = Board; placementPhaseLoop(NewNewBoard, PlayerD, PlayerL, NewDarkPlayer, NewLightPlayer, _)).
+    (Board == NewNewBoard -> FinalBoard = Board; placementPhaseLoop(NewNewBoard, PlayerD, PlayerL, NewDarkPlayer, NewLightPlayer, _, _, _)).
 
 
 % The actions of the placement phase for the DarkPlayer 
@@ -87,3 +93,9 @@ placePhasePlayerLight(Board, 'P', LightPlayer, NewBoard, NewLightPlayer):-
 
 
 
+
+
+% Scoring phase
+
+
+    
