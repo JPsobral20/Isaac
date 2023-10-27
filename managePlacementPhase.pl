@@ -338,7 +338,7 @@ validMove(Direction, Column, Row, Length, Board, RetDirection):-
 
 printPieceOnBoard(Column, Row, Piece, Board, right, Player, Acronym, AfterBoard):-
     getNumberPiece(Piece,Player,Number),
-    Element = Number-Acronym-Piece,
+    Element = Piece-Acronym-Number,
     elementAt(Board, Row, RowList),
     scoreLength(Piece, Length),
     NewLength is Length - 1,
@@ -347,7 +347,7 @@ printPieceOnBoard(Column, Row, Piece, Board, right, Player, Acronym, AfterBoard)
     
 printPieceOnBoard(Column, Row, Piece, Board, left, Player, Acronym, AfterBoard):-
     getNumberPiece(Piece,Player,Number),
-    Element = Number-Acronym-Piece, 
+    Element = Piece-Acronym-Number, 
     elementAt(Board, Row, RowList),
     scoreLength(Piece, Length),
     NewLength is Length - 1,
@@ -357,14 +357,14 @@ printPieceOnBoard(Column, Row, Piece, Board, left, Player, Acronym, AfterBoard):
 
 printPieceOnBoard(Column, Row, Piece, Board, down, Player, Acronym, AfterBoard):-
     getNumberPiece(Piece,Player,Number),
-    Element = Number-Acronym-Piece,
+    Element = Piece-Acronym-Number,
     scoreLength(Piece, Length),
     NewRow is Row + Length,
     updateColumn(Board, Column, Row, NewRow, Element, AfterBoard).
 
 printPieceOnBoard(Column, Row, Piece, Board, up, Player, Acronym, AfterBoard):-
     getNumberPiece(Piece,Player,Number),
-    Element = Number-Acronym-Piece,
+    Element = Piece-Acronym-Number,
     scoreLength(Piece, Length),
     NewRow is Row - (Length - 1), % Dividi-se por 10 e depois tiramos o tamanho da peça - 1 para obter a linha inicial
     NewRowEnd is NewRow + Length,
