@@ -1,5 +1,5 @@
 % Checks if player can play horizontally and vertically
-checkIfPlayerCanPlayPlacementPhase(Board, Player):-
+checkIfCanPlayPlacementPhase(Board, Player):-
     checkHorizontal(Board, Player);
     (transpose(Board, NewBoard),
     checkHorizontal(NewBoard, Player)).
@@ -15,9 +15,9 @@ checkHorizontal(Board, [Piece|Rest]):-
 
     (NumberPieces \= 0 ->
 
-    checkConsecutiveZeros(Board, Length)
-    ;
-    checkHorizontal(Board, Rest)
+        checkConsecutiveZeros(Board, Length)
+        ;
+        checkHorizontal(Board, Rest)
     
     ).
 

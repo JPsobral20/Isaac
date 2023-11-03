@@ -31,8 +31,6 @@ symbol(1, ' 1 ').
 /* All the pieces to write on the board, [68] is the list when we do "D" and [76] is the list when we do "L", 
 the first number is the score of that piece and the last is the number(id) of pieces */
 
-
-
 symbol(1-[68]-5, '1D5').
 symbol(1-[68]-4, '1D4').
 symbol(1-[68]-3, '1D3').
@@ -83,7 +81,7 @@ getNumberPiece(Score,Player,Number):-
 
 % Prints the pieces that each player has
 printMenuPieces(Score,Player):-
-    write('\n\n'),
+    write('\n'),
     scoreLength(Score, Length),
     printRestPiece(Length),
     format("Piece score ~w: ", [Score]),
@@ -97,7 +95,6 @@ printPiece(N,NumPieces):-
     write('_|'),
     N1 is N - 1,
     printPiece(N1,NumPieces).
-
 
 
 printRestPiece(3):- 

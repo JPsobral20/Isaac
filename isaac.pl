@@ -2,6 +2,7 @@
 :- consult('display.pl').
 :- consult('logic.pl').
 :- consult('managePlacementPhase.pl').
+:- consult('manageScoringPhase.pl').
 :- use_module(library(random)).
 :- use_module(library(system)).
 :- use_module(library(lists)).
