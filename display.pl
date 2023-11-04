@@ -1,29 +1,29 @@
 % Defines the initial game board matrix with all positions initialized to 0. The matrix represents the game board.
-initialMatrix([
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+initial_matrix([
+[0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+[0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+[0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+[0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]).
 
 
 % Define the players pieces. Each player has a list of the number of each piece that he has. Represented as [NumberOfPieces, ScorePiece]
-darkPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
+dark_player([[5,1], [4,2], [3,3], [2,4], [1,6]]).
 
-lightPlayer([[5,1], [4,2], [3,3], [2,4], [1,6]]).
+light_player([[5,1], [4,2], [3,3], [2,4], [1,6]]).
 
 % Specifies the size of the piece for each score.
-scoreLength(1,3).
-scoreLength(2,4).
-scoreLength(3,5).
-scoreLength(4,6).
-scoreLength(6,7).
+score_length(1,3).
+score_length(2,4).
+score_length(3,5).
+score_length(4,6).
+score_length(6,7).
 
 symbol(0, '   ').
 symbol(1, ' 1 ').
@@ -76,81 +76,81 @@ rows(80, '80').
 rows(90, '90').
  
 % Get the number of pieces of a player
-getNumberPiece(Score,Player,Number):- 
+get_number_piece(Score,Player,Number):- 
     member([Number,Score],Player).
 
 % Prints the pieces that each player has
-printMenuPieces(Score,Player):-
+print_menu_pieces(Score,Player):-
     write('\n'),
-    scoreLength(Score, Length),
-    printRestPiece(Length),
+    score_length(Score, Length),
+    print_rest_piece(Length),
     format("Piece score ~w: ", [Score]),
-    getNumberPiece(Score,Player,Number),
+    get_number_piece(Score,Player,Number),
     write('|'),
-    printPiece(Length,Number).
+    print_piece(Length,Number).
 
-printPiece(0,NumPieces):-format("x~w",[NumPieces]).
-printPiece(N,NumPieces):-
+print_piece(0,NumPieces):-format("x~w",[NumPieces]).
+print_piece(N,NumPieces):-
     N > 0,
     write('_|'),
     N1 is N - 1,
-    printPiece(N1,NumPieces).
+    print_piece(N1,NumPieces).
 
 
-printRestPiece(3):- 
+print_rest_piece(3):- 
     write('                '),
     write('_ _ _\n').
 
-printRestPiece(4):-
+print_rest_piece(4):-
     write('                '),
     write('_ _ _ _\n').
 
-printRestPiece(5):-
+print_rest_piece(5):-
     write('                '),
     write('_ _ _ _ _\n').
 
-printRestPiece(6):-
+print_rest_piece(6):-
     write('                '),
     write('_ _ _ _ _ _\n').
 
-printRestPiece(7):-
+print_rest_piece(7):-
     write('                '),
     write('_ _ _ _ _ _ _\n').
 
 % Prints the game board
-printBoard(X):-
+print_board(X):-
     nl,
     write('    | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |\n'),
-    printLineBoard,
-    printMatrix(X, 90, 0).
+    print_line_board,
+    print_matrix(X, 90, 0).
 
-printLineBoard:-
+print_line_board:-
     write(' -----------------------------------------------\n').
 
 
 % Prints the board matrix
-printMatrix([], -10, 100):- write('    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |\n').
+print_matrix([], -10, 100):- write('    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |\n').
 
-printMatrix([Head|Tail], ND, NL):-
+print_matrix([Head|Tail], ND, NL):-
     rows(ND, RD),
     write(' '),
     write(RD),
     ND1 is ND - 10,
     write(' |'),
-    printLine(Head),
+    print_line(Head),
     rows(NL, RL),
     write(' '),
     write(RL),
     NL1 is NL + 10,
     nl,
-    printLineBoard,
-    printMatrix(Tail, ND1, NL1).
+    print_line_board,
+    print_matrix(Tail, ND1, NL1).
 
 % Prints a row of the board
-printLine([]).
+print_line([]).
 
-printLine([Head|Tail]):-
+print_line([Head|Tail]):-
     symbol(Head, S),
     write(S),
     write('|'),
-    printLine(Tail).
+    print_line(Tail).

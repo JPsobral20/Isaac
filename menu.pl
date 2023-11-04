@@ -1,37 +1,37 @@
-mainMenu:-
-    printMainMenu,
-    printMenuOption,
+main_menu:-
+    print_main_menu,
+    print_menu_option,
     read(Input),
-    checkInput(Input).
+    check_input(Input).
 
-printMenuOption:-
+print_menu_option:-
     write('Insert your option: ').
 
 % Checks input
-checkInput(1):-
-    startGame('P','P'),
-    mainMenu.
+check_input(1):-
+    start_game('P','P'),
+    main_menu.
 
-checkInput(2):-
+check_input(2):-
     /*Print Bot Options*/
-    mainMenu.
+    main_menu.
 
-checkInput(3):-
+check_input(3):-
     /*print more bot options*/
-    mainMenu.
+    main_menu.
 
-checkInput(0):-
+check_input(0):-
     write('\nExiting...\n\n').
 
-checkInput(_):-
+check_input(_):-
     write('\nERROR: invalid option!\n\n'),
-    printMenuOption,
+    print_menu_option,
     read(Input),
-    checkInput(Input).
+    check_input(Input).
 
     
 % Prints the main menu
-printMainMenu:-
+print_main_menu:-
     nl,nl,
     write(' _______________________________________________________________________ '),nl,
     write('|                                                                       |'),nl,

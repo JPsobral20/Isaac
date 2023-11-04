@@ -7,4 +7,4 @@
 :- use_module(library(system)).
 :- use_module(library(lists)).
 
-play:- mainMenu.
+play:- main_menu.
